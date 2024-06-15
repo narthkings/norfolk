@@ -44,7 +44,12 @@ export interface ICustomer {
     profileImage?: string
 }
 
+export type Ids = {
+    id: string
+}
 export interface ICustomerToGroup {
     groupId: string,
-    members: string[]
+}
+export interface ICreateGroup {
+    groupName: string,
 }

@@ -21,3 +21,10 @@ export const newMemberSchema = Yup.object().shape({
   password: Yup.string().required('Password is required'),
 });
 
+export const addToGroupCustomer = Yup.object().shape({
+  groupId: Yup.string().required('Select a group'),
+});
+export const addNewGroup = Yup.object().shape({
+  groupName: Yup.string().required('Enter a group name'),
+});
+

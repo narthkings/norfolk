@@ -18,6 +18,7 @@ type TableProps = {
   handlePageChange?: (page: number) => void
   handlePerRowsChange?: (newPerPage: number, page: number) => void
   selectableRows?: boolean
+  clearSelectedRows?: boolean
 }
 
 const Table = ({
@@ -32,7 +33,8 @@ const Table = ({
   customStyles,
   withCustomedPagination,
   totalRows,
-  selectableRows = true
+  selectableRows = true,
+  clearSelectedRows
 }: TableProps) => {
   return (
     <DataTable
@@ -55,6 +57,7 @@ const Table = ({
         </div>
       }
       customStyles={customStyles}
+      clearSelectedRows={clearSelectedRows}
     />
   )
 }

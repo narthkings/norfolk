@@ -17,7 +17,7 @@ const OutlineBtn = ({
 }: BtnProps) => {
   return (
     <Button
-      color={color ?? 'primary'}
+      color={'grey'}
       colorScheme={colorScheme ?? 'primary'}
       variant="outline"
       onClick={onClick}

@@ -42,12 +42,12 @@ const SideBar = ({ onClose, onOpen, isOpen, ...rest }: SidebarProps) => {
       alt: 'customer icon',
       tabName: 'Customers'
     },
-    {
-      href: '/groups',
-      icon: Group,
-      alt: 'payers icon',
-      tabName: 'Groups'
-    },
+    // {
+    //   href: '/groups',
+    //   icon: Group,
+    //   alt: 'payers icon',
+    //   tabName: 'Groups'
+    // },
     {
       href: '/settings',
       icon: Appointment,
@@ -125,8 +125,6 @@ const SideBar = ({ onClose, onOpen, isOpen, ...rest }: SidebarProps) => {
       <Flex height={'80%'} direction={'column'} justifyContent={'space-between'}>
         <Box>
           {LinkItems.map((link) => {
-            // let resolved = useResolvedPath(link.href)
-            // let match = useMatch({ path: resolved.pathname, end: true })
 
             return (
               <NavItem
@@ -177,7 +175,6 @@ const NavItem: React.FC<NavItemProps> = ({ icon, children, to, color, ...rest })
         cursor="pointer"
         {...rest}
       >
-        {/* {icon && ( */}
         <Icon
           stroke={color}
           color={color}
@@ -189,7 +186,6 @@ const NavItem: React.FC<NavItemProps> = ({ icon, children, to, color, ...rest })
             stroke: '#f85619',
           }}
         />
-        {/* )} */}
         {children}
       </Flex>
     </Link>
