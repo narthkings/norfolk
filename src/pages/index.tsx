@@ -36,8 +36,11 @@ const Home = () => {
     try {
       const req = await mutateAsync(data)
       // toast.success(req.data.message)
-      router.push('/customers')
-      sessionStorage.setItem('admin', JSON.stringify(req.data.token))
+      if (req.data.status === true) {
+        router.push('/customers')
+        sessionStorage.setItem('admin', JSON.stringify(req.data.token))
+        return
+      }
     } catch (error: any) {
     }
   }
