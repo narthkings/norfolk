@@ -1,17 +1,21 @@
 import React, { ReactNode } from 'react';
 import NextLink from 'next/link'
-import { Avatar, Box, Flex, FlexProps, Link, Text, useColorModeValue } from '@chakra-ui/react';
+import { Avatar, Box, Flex, FlexProps, Icon, IconButton, Link, Menu, MenuButton, MenuItem, MenuList, Portal, Stack, Text, useColorModeValue } from '@chakra-ui/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-// import AppButton from '../app-button';
-import { Children, SidebarProps } from '@/types';
-import { SidebarLink } from '@/components/sidebar-link';
+import { SidebarProps } from '@/types';
 import Home from '@/assets/icons/home.svg';
 import Customer from '@/assets/icons/customer-nav-icon.svg';
 import Group from '@/assets/icons/people.svg';
 import Appointment from '@/assets/icons/appointment.svg';
+import Help from '@/assets/icons/headPhone.svg';
+import Cog from '@/assets/icons/cog.svg';
+import Dots from '@/assets/icons/dots';
+import Switch from '@/assets/icons/switch.svg';
+import SignOut from '@/assets/icons/signOut.svg';
 import { SuccessToast } from '@/utils/toast';
 import Logo from '@/assets/image/retro.png'
+import { HamburgerIcon, ViewIcon } from '@chakra-ui/icons';
 
 interface NavItemProps extends FlexProps {
   icon?: any
@@ -49,12 +53,27 @@ const SideBar = ({ onClose, onOpen, isOpen, ...rest }: SidebarProps) => {
       tabName: 'Groups'
     },
     {
-      href: '/settings',
+      href: '#',
       icon: Appointment,
+      alt: 'payers icon',
+      tabName: 'Appointment'
+    },
+  ];
+
+  const BottomLinkItems = [
+    {
+      href: '/settings',
+      icon: Cog,
       alt: 'Settings',
       tabName: 'Settings'
-    }
-  ];
+    },
+    {
+      href: '#',
+      icon: Help,
+      alt: 'Help Center',
+      tabName: 'Help Center'
+    },
+  ]
 
   return (
     <Box
@@ -103,23 +122,86 @@ const SideBar = ({ onClose, onOpen, isOpen, ...rest }: SidebarProps) => {
           ))}
         </Flex> */}
         <Box>
+          <Box>
+            {BottomLinkItems.map((link) => {
+              const isActive = router.pathname.startsWith(link.href);
+              return (
+                <NavItem
+                  _hover={{ background: '#FEEEE8', color: '#B03D12' }}
+                  // className={isActive ? 'activeLink' : ''}
+                  color={isActive ? '#B03D12' : '#484d59'}
+                  key={link.tabName}
+                  icon={link.icon}
+                  to={link.href}
+                  bg={isActive ? '#FEEEE8' : ''}
+                >
+                  {link.tabName}
+                </NavItem>
+              )
+            })}
+          </Box>
           <Box px={'4'}>
             <hr style={{ marginTop: '1rem', marginBottom: '1.5rem', height: '1px' }} />
           </Box>
 
-          <Flex alignItems={'start'} justifyContent={'space-evenly'}>
-            <Avatar bg="primary.base.50" src='https://bit.ly/ryan-florence' />
-            <Box onClick={() => router.push('/profile')} cursor={'pointer'}>
-              <Text fontSize={'.9rem'} fontWeight={'600'}>
-                {'jon doe'}
-              </Text>
-              <Text fontSize={'.9rem'}>{'Receptionist'}</Text>
-            </Box>
-            {/* <LogoutIcon style={{ cursor: 'pointer' }} onClick={handleLogout} /> */}
+          <Flex alignItems={'center'} gap={'5rem'}>
+            <Stack direction={'row'} gap={3} px={'1rem'}>
+              <Avatar size={'sm'} bg="primary.base.50" src='https://bit.ly/ryan-florence' />
+              <Box onClick={() => router.push('/profile')} cursor={'pointer'}>
+                <Text fontSize={'.9rem'} fontWeight={'600'}>
+                  {'jon doe'}
+                </Text>
+                <Text fontSize={'.9rem'}>{'Receptionist'}</Text>
+              </Box>
+
+            </Stack>
+
+            <Menu>
+              <MenuButton
+                as={IconButton}
+                aria-label="Options"
+                icon={<Dots />}
+                variant="outline"
+                fontSize='10px'
+              />
+
+              <Portal>
+
+                <MenuList>
+                  <MenuItem onClick={handleLogout}>
+                    <Flex width={'100%'} alignItems={'center'} justify={'space-between'}>
+                      <div>
+                        Switch Profiles
+                      </div>
+                      <Image
+                        src={Switch}
+                        alt={'icon'}
+                        height={20}
+                        width={20}
+                      />
+                    </Flex>
+                  </MenuItem>
+                  <MenuItem onClick={handleLogout}>
+                    <Flex width={'100%'} alignItems={'center'} justify={'space-between'}>
+                      <div>
+                        Sign out
+                      </div>
+                      <Image
+                        src={SignOut}
+                        alt={'icon'}
+                        height={20}
+                        width={20}
+                      />
+                    </Flex>
+                  </MenuItem>
+                </MenuList>
+              </Portal>
+            </Menu>
+
           </Flex>
         </Box>
-      </Flex>
-    </Box>
+      </Flex >
+    </Box >
   )
 };
 

@@ -94,7 +94,7 @@ const ProtectedLayout = ({ children }: Children) => {
         </DrawerContent>
       </Drawer>
       {!isMobile ? <></> : <MobileNav onOpen={onOpenNav} />}
-      <Box>
+      <Box ml={{ base: 0, lg: 72 }} >
         <Header />
       </Box>
       <Box bg={'#F9FAFB'} ml={{ base: 0, lg: 72 }} p="4">

@@ -14,7 +14,7 @@ import { ArrowBackIcon } from '@chakra-ui/icons';
 
 const Members = () => {
     const router = useRouter()
-    const { data, isLoading, } = useViewGroupMembers(router.query.id as string)
+    const { data, isLoading, } = useViewGroupMembers(router?.query?.id as string)
 
     const columns: TableColumn<ICustomer>[] = [
         {
