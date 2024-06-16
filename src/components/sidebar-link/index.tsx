@@ -42,13 +42,13 @@ export const SidebarLink = ({
         as={NextLink}
         _hover={{ textDecoration: 'none' }}
       >
-        {/* <Image
-          src={isActive ? ActiveIcon : icon}
+        <Image
+          src={isActive ? icon : ''}
           alt={alt}
           height={isActive ? 25 : h}
           width={isActive ? 25 : w}
           style={{ marginLeft: isActive ? '' : '-.8rem' }}
-        /> */}
+        />
         <Text
           ml="4"
           fontWeight="medium"
