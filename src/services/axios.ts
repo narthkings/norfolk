@@ -21,7 +21,7 @@ axios.interceptors.request.use(axiosConfiguration as any);
 axios.interceptors.response.use(
   (res: any) => {
     if (res.data.status === false) toast.error(res.data.message)
-    if (res.data.status === true) toast.success(res.data.message)
+    // if (res.data.status === true) toast.success(res.data.message)
     return res;
   },
   async (error: any) => {

@@ -18,6 +18,7 @@ import AppSelect, { SelectProps } from "@/components/app-select";
 import { OnChangeValue, SingleValue } from "react-select";
 import { useCreateAdminMutation, useDeleteAdmin, useGetAllAdmins } from "@/services/mutations/admin.mutation";
 import { getRole } from "@/utils/getColor";
+import toast from "react-hot-toast";
 
 const Settings = () => {
     const [id, setId] = useState<string>('')
@@ -112,14 +113,16 @@ const Settings = () => {
 
     const createAdmin = async (data: ICreateAdmin) => {
         try {
-            await mutateAsync(data)
+            const res = await mutateAsync(data)
+            if (res.data.status === true) toast.success(res.data.message)
             reset()
             onClose()
         } catch (error) { }
     }
     const handleDelete = async () => {
         try {
-            await deleteMember(id)
+            const res = await deleteMember(id)
+            if (res.data.status === true) toast.success(res.data.message)
             DeleteOnClose()
         } catch (error) {
 

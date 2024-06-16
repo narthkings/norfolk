@@ -31,6 +31,7 @@ import {
 import { AddIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 import Group from "@/components/Group";
 import { getStatusColor } from "@/utils/getColor";
+import toast from "react-hot-toast";
 
 const Customer = () => {
     const [toggleCleared, setToggleCleared] = React.useState(false);
@@ -132,7 +133,8 @@ const Customer = () => {
 
     const createCustomer = async (data: ICustomer) => {
         try {
-            await mutateAsync(data);
+            const res = await mutateAsync(data);
+            if (res.data.status === true) toast.success(res.data.message)
             reset();
             onClose();
         } catch (error) { }
