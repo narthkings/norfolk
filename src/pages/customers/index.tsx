@@ -1,11 +1,20 @@
 import ProtectedLayout from "@/components/layouts/ProtectedLayout";
-import { Avatar, Box, Flex, Stack, useDisclosure } from "@chakra-ui/react";
+import {
+    Avatar,
+    Box,
+    Flex,
+    Stack,
+    Tag,
+    TagLabel,
+    TagLeftIcon,
+    useDisclosure,
+} from "@chakra-ui/react";
 import React, { useCallback } from "react";
 import AppText from "@/components/app-text";
 import { TableColumn } from "react-data-table-component";
 import PrimaryBtn from "@/components/app-button/PrimaryBtn";
 import OutlineBtn from "@/components/app-button/OutlineBtn";
-import { ICustomer } from "@/types";
+import { ICustomer, MembershipStatus, Statuses } from "@/types";
 import Table from "@/components/Table";
 import styles from "@/utils/table-styles";
 import MessageModal from "@/components/Modal/MessageModal";
@@ -19,8 +28,9 @@ import {
     useCreateCustomerMutation,
     useGetAllCustomers,
 } from "@/services/mutations/customer";
-import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { AddIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 import Group from "@/components/Group";
+import { getStatusColor } from "@/utils/getColor";
 
 const Customer = () => {
     const [toggleCleared, setToggleCleared] = React.useState(false);
@@ -57,10 +67,25 @@ const Customer = () => {
             name: "Name",
             sortable: true,
             cell: (row: ICustomer) => (
-                <Stack direction={"row"} align={"center"} gap={3}>
-                    <Avatar src="https://bit.ly/tioluwani-kolawole" />
-                    <AppText variant={"xx_smallest"}>{row?.fullName}</AppText>
-                </Stack>
+                <>
+                    <Stack direction={"row"} align={"center"} gap={3}>
+                        <Avatar size={'md'} name={row?.fullName} src={row.profileImage} />
+                        <Box>
+                            <AppText fontWeight="bold" variant={"x_small"}>{row?.fullName}</AppText>
+                            <AppText mt={1} fontWeight="normal" variant={"x_small"}>{row?.customerClassification} - {row?.age || 0} years </AppText>
+                        </Box>
+                    </Stack>
+
+                </>
+            ),
+        },
+        {
+            name: "ID",
+            sortable: true,
+            cell: (row: ICustomer) => (
+                <AppText textAlign={"right"} variant={"xx_smallest"}>
+                    #{row?.customId}
+                </AppText>
             ),
         },
         {
@@ -84,15 +109,23 @@ const Customer = () => {
         {
             name: "Membership",
             sortable: true,
-            cell: (row: ICustomer) => (
-                <AppText variant={"xx_smallest"}>{row?.customerClassification}</AppText>
-            ),
+            cell: (row: ICustomer) => {
+                const status = getStatusColor(row.membershipType as Statuses);
+                return (
+                    <Tag borderRadius={"2rem"} size={"sm"} variant="subtle" bgColor={status?.color}>
+                        <TagLabel p={1}>
+                            <AppText color={'#fff'} variant={"xx_smallest"}>{status?.name}</AppText>
+                        </TagLabel>
+                    </Tag>
+                )
+            },
         },
         {
             name: "Payment Method",
             sortable: true,
+            center: true,
             cell: (row: ICustomer) => (
-                <AppText variant={"xx_smallest"}>{row?.paymentMethod}</AppText>
+                <AppText variant={"xx_smallest"} textTransform={'capitalize'} >{row?.paymentMethod}</AppText>
             ),
         },
     ];
@@ -135,10 +168,8 @@ const Customer = () => {
                     "0px 1px 3px rgba(16, 24, 40, 0.1), 0px 1px 2px rgba(16, 24, 40, 0.06)"
                 }
             >
-                {/* border={'1px solid red'} */}
                 {selectedRows.length ? (
                     <Flex
-                        width={"20%"}
                         bg={"2rem"}
                         p={"1rem"}
                         gap={"5"}
@@ -169,10 +200,11 @@ const Customer = () => {
             </Box>
 
             <MessageModal
-                width={{ base: "100%", md: "40%", xl: "25%" }}
+                width={{ base: "100%", md: "50%" }}
                 isOpen={isOpen}
                 onClose={onClose}
                 text={"Add Customer"}
+                size="md"
             >
                 <>
                     <AppText variant={"xs"}>Enter customer details</AppText>
@@ -233,6 +265,24 @@ const Customer = () => {
                                     onChange={(el) => handlePaymentMethod(el as SingleValue<SelectProps>)}
                                 />
                             </Box>
+                            <Box>
+                                <InputField
+                                    label="Card Number"
+                                    placeholder="xxxxxxx xxxxx xxxx"
+                                />
+                            </Box>
+                            <Flex gap={3}>
+                                <InputField
+                                    label="Expiry Date"
+                                    placeholder="xxxxxxx xxxxx xxxx"
+                                    type="tel"
+                                />
+                                <InputField
+                                    label="CVV"
+                                    placeholder="123"
+                                    type="tel"
+                                />
+                            </Flex>
                             <Flex justifyContent={"center"} gap={5} mt={"2rem"}>
                                 <OutlineBtn size={"lg"} width={"100%"} label="Cancel" onClick={onClose} />
                                 <PrimaryBtn

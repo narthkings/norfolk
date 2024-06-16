@@ -45,7 +45,7 @@ const SecondGroup = ({ onGroupClose, setSelectionType }: Props) => {
             </Box>
             <Flex justifyContent={'center'} gap={5} mt={'2rem'}>
                 <OutlineBtn size={"lg"} width={'100%'} label="Cancel" onClick={onGroupClose} />
-                <PrimaryBtn size={"lg"} width={'100%'} label="Add Customers" isLoading={isPending} type='submit' />
+                <PrimaryBtn size={"lg"} width={'100%'} label="Add Group" isLoading={isPending} type='submit' />
             </Flex>
         </form>
     )

@@ -32,14 +32,18 @@ export interface ICreateAdmin {
     password: string
     adminRole: string
     role?: string
+    createdAt?: string | Date
 }
 
 export interface ICustomer {
+    age?: number
+    id?: string
+    customId?: string
     email: string
     fullName: string
     dob: string | Date
     customerClassification?: string
-    membership?: string
+    membershipType?: string
     paymentMethod: string
     profileImage?: string
 }
@@ -52,4 +56,33 @@ export interface ICustomerToGroup {
 }
 export interface ICreateGroup {
     groupName: string,
+}
+
+export enum Statuses {
+    classesMember = 'Classes Member',
+    swimmingMember = 'Swimming Member',
+    nonMember = 'None Member',
+    suppliersChoice = 'Suppliers Choice',
+    discountCardHolder = 'Discount Card Holder',
+    swimmingLessonCourseCustomer = 'Swimming lesson Course',
+}
+
+export const MembershipStatus = {
+    classesMember: 'Classes Member',
+    swimmingMember: 'Swimming Member',
+    nonMember: 'Non Member',
+    suppliersChoice: 'Suppliers Choice',
+    discountCardHolder: 'Discount Card Holder',
+    swimmingLessonCourseCustomer: 'Swimming Lesson Course Customer',
+};
+
+export const Roles = {
+    superAdmin: 'Super Admin',
+    admin: 'Admin',
+    receptionist: 'Receptionist'
+}
+export enum IRoles {
+    superAdmin = 'Super Admin',
+    admin = 'Admin',
+    receptionist = 'Receptionist'
 }

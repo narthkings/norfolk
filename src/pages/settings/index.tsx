@@ -1,12 +1,12 @@
 import ProtectedLayout from "@/components/layouts/ProtectedLayout";
 import { DeleteIcon } from '@chakra-ui/icons'
-import { Avatar, Box, Flex, IconButton, Stack, useDisclosure } from "@chakra-ui/react";
+import { Avatar, Box, Flex, IconButton, Stack, Tag, TagLabel, useDisclosure } from "@chakra-ui/react";
 import React, { useState } from "react";
 import AppText from "@/components/app-text";
 import { TableColumn } from "react-data-table-component";
 import PrimaryBtn from "@/components/app-button/PrimaryBtn";
 import OutlineBtn from "@/components/app-button/OutlineBtn";
-import { ICreateAdmin } from "@/types";
+import { ICreateAdmin, IRoles } from "@/types";
 import Table from "@/components/Table";
 import styles from "@/utils/table-styles";
 import MessageModal from "@/components/Modal/MessageModal";
@@ -17,6 +17,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import AppSelect, { SelectProps } from "@/components/app-select";
 import { OnChangeValue, SingleValue } from "react-select";
 import { useCreateAdminMutation, useDeleteAdmin, useGetAllAdmins } from "@/services/mutations/admin.mutation";
+import { getRole } from "@/utils/getColor";
 
 const Settings = () => {
     const [id, setId] = useState<string>('')
@@ -45,46 +46,67 @@ const Settings = () => {
             name: "Name",
             sortable: true,
             cell: (row: ICreateAdmin) => (
-                <Stack direction={"row"} align={"center"} gap={3}>
-                    <Avatar src="https://bit.ly/tioluwani-kolawole" />
-                    <AppText variant={"xx_smallest"}>{row?.fullName}</AppText>
-                </Stack>
+                <>
+                    <Stack direction={"row"} align={"center"} gap={3}>
+                        <Avatar size='md' name={row?.fullName} />
+                        <Box>
+                            <AppText fontWeight="bold" variant={"x_small"}>{row?.fullName}</AppText>
+                            <AppText mt={1} fontWeight="normal" variant={"x_small"}>{row?.email} </AppText>
+                        </Box>
+                    </Stack>
+
+                </>
             ),
         },
         {
-            name: "Email",
+            name: "Date Added",
+            center: true,
             sortable: true,
-            cell: (row: ICreateAdmin) => (
-                <AppText textAlign={"right"} variant={"xx_smallest"}>
-                    {row?.email}
-                </AppText>
-            ),
+            cell: (row: ICreateAdmin) => {
+                const da = new Date(row?.createdAt as Date)
+                const date = new Intl.DateTimeFormat('en-GB').format(da)
+                return (
+                    <AppText textAlign={"right"} variant={"xx_smallest"}>
+                        {date}
+                    </AppText>
+                )
+            },
         },
         {
             name: "Role",
+            center: true,
             sortable: true,
-            cell: (row: ICreateAdmin) => (
-                <AppText textAlign={"right"} variant={"xx_smallest"}>
-                    {row?.role as string}
-                </AppText>
-            ),
+            cell: (row: ICreateAdmin) => {
+                const role = getRole(row?.role as IRoles)
+                return (
+                    <Tag borderRadius={"2rem"} size={"sm"} variant="subtle" bgColor={role?.color}>
+                        <TagLabel p={1}>
+                            <AppText color={'#fff'} variant={"xx_smallest"}>{role?.name}</AppText>
+                        </TagLabel>
+                    </Tag>
+                )
+            },
         },
         {
             name: "Actions",
             sortable: true,
-            cell: (row: ICreateAdmin) => (
-                <IconButton
-                    onClick={() => {
-                        console.log(row?.id)
-                        setId(row?.id as string)
-                        DeleteOnOpen()
-                    }}
-                    border={'1px solid #E4E7EC'}
-                    colorScheme='grey'
-                    aria-label='Search database'
-                    icon={<DeleteIcon color={'black'} boxSize={5} />}
-                />
-            ),
+            center: true,
+            cell: (row: ICreateAdmin) => {
+
+                return (
+                    <IconButton
+                        onClick={() => {
+                            console.log(row?.id)
+                            setId(row?.id as string)
+                            DeleteOnOpen()
+                        }}
+                        border={'1px solid #E4E7EC'}
+                        colorScheme='grey'
+                        aria-label='Search database'
+                        icon={<DeleteIcon color={'black'} boxSize={5} />}
+                    />
+                )
+            },
         }
     ];
 

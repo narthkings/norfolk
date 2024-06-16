@@ -22,7 +22,7 @@ const tableStyles = {
       paddingRight: '10px',
       paddingTop: '10px',
       paddingBottom: '10px',
-      fontSize: '13px',
+      fontSize: '14px',
       overFlowY: 'auto',
       fontWeight: '500',
       'last-child': {

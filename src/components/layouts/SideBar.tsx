@@ -29,12 +29,12 @@ const SideBar = ({ onClose, onOpen, isOpen, ...rest }: SidebarProps) => {
   };
 
   const LinkItems = [
-    // {
-    //   href: '/dashboard',
-    //   icon: Home,
-    //   alt: 'providers icon',
-    //   tabName: 'Home'
-    // },
+    {
+      href: '#',
+      icon: Home,
+      alt: 'providers icon',
+      tabName: 'Home'
+    },
 
     {
       href: '/customers',
@@ -42,12 +42,12 @@ const SideBar = ({ onClose, onOpen, isOpen, ...rest }: SidebarProps) => {
       alt: 'customer icon',
       tabName: 'Customers'
     },
-    // {
-    //   href: '/groups',
-    //   icon: Group,
-    //   alt: 'payers icon',
-    //   tabName: 'Groups'
-    // },
+    {
+      href: '#',
+      icon: Group,
+      alt: 'payers icon',
+      tabName: 'Groups'
+    },
     {
       href: '/settings',
       icon: Appointment,
