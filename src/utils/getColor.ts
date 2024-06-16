@@ -31,3 +31,8 @@ export const getRole = (status: string) => {
             return { name: 'Unknown Role', color: 'gray.500' };
     }
 };
+
+export const getSessionStorageData: any = (key: string) => {
+    const value = sessionStorage.getItem(key)
+    return value ? JSON.parse(sessionStorage.getItem(key) || '{}') : false
+}

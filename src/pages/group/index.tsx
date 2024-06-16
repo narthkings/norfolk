@@ -3,12 +3,12 @@ import ProtectedLayout from "@/components/layouts/ProtectedLayout";
 import Table from "@/components/Table";
 import { useGetAllGroups } from "@/services/mutations/group.mutation";
 import { IGroups } from "@/types";
-import { HamburgerIcon, ViewIcon } from "@chakra-ui/icons";
-import { Box, IconButton, Menu, MenuButton, MenuItem, MenuList, Stack } from "@chakra-ui/react";
+import { Box, Stack } from "@chakra-ui/react";
 import React from "react";
 import { TableColumn } from "react-data-table-component";
 import styles from "@/utils/table-styles";
 import { useRouter } from "next/router";
+import PrimaryBtn from "@/components/app-button/PrimaryBtn";
 
 
 const Group = () => {
@@ -44,20 +44,9 @@ const Group = () => {
             sortable: true,
             center: true,
             cell: (row: IGroups) => {
+                console.log(row)
                 return (
-                    <Menu>
-                        <MenuButton
-                            as={IconButton}
-                            aria-label="Options"
-                            icon={<HamburgerIcon />}
-                            variant="outline"
-                        />
-                        <MenuList>
-                            <MenuItem onClick={() => router.push(`/group/${row._id}`)} icon={<ViewIcon boxSize={5} />}>
-                                View members
-                            </MenuItem>
-                        </MenuList>
-                    </Menu>
+                    <PrimaryBtn label="View Members" onClick={() => router.push(`/group/${row._id}`)} />
                 );
             },
         },

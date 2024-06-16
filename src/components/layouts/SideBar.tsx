@@ -16,6 +16,7 @@ import SignOut from '@/assets/icons/signOut.svg';
 import { SuccessToast } from '@/utils/toast';
 import Logo from '@/assets/image/retro.png'
 import { HamburgerIcon, ViewIcon } from '@chakra-ui/icons';
+import { getSessionStorageData } from '@/utils/getColor';
 
 interface NavItemProps extends FlexProps {
   icon?: any
@@ -28,10 +29,12 @@ const SideBar = ({ onClose, onOpen, isOpen, ...rest }: SidebarProps) => {
 
   const handleLogout = () => {
     sessionStorage.removeItem('admin');
+    sessionStorage.removeItem('profileData');
     router.push('/');
     SuccessToast('Logout Successful!');
   };
 
+  let info = getSessionStorageData('profileData')
   const LinkItems = [
     {
       href: '#',
@@ -144,14 +147,14 @@ const SideBar = ({ onClose, onOpen, isOpen, ...rest }: SidebarProps) => {
             <hr style={{ marginTop: '1rem', marginBottom: '1.5rem', height: '1px' }} />
           </Box>
 
-          <Flex alignItems={'center'} gap={'5rem'}>
+          <Flex alignItems={'center'} gap={'3rem'}>
             <Stack direction={'row'} gap={3} px={'1rem'}>
               <Avatar size={'sm'} bg="primary.base.50" src='https://bit.ly/ryan-florence' />
-              <Box onClick={() => router.push('/profile')} cursor={'pointer'}>
+              <Box>
                 <Text fontSize={'.9rem'} fontWeight={'600'}>
-                  {'jon doe'}
+                  {info?.data?.fullName ?? ''}
                 </Text>
-                <Text fontSize={'.9rem'}>{'Receptionist'}</Text>
+                <Text fontSize={'.9rem'}>{info?.data?.role ?? ''}</Text>
               </Box>
 
             </Stack>

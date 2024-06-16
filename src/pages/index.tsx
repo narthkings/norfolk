@@ -39,6 +39,7 @@ const Home = () => {
       if (req.data.status === true) {
         router.push('/customers')
         sessionStorage.setItem('admin', JSON.stringify(req.data.token))
+        sessionStorage.setItem('profileData', JSON.stringify(req.data))
         return
       }
     } catch (error: any) {
