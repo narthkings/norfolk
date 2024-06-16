@@ -14,7 +14,7 @@ import AppText from "@/components/app-text";
 import { TableColumn } from "react-data-table-component";
 import PrimaryBtn from "@/components/app-button/PrimaryBtn";
 import OutlineBtn from "@/components/app-button/OutlineBtn";
-import { ICustomer, MembershipStatus, Statuses } from "@/types";
+import { ICustomer, Statuses } from "@/types";
 import Table from "@/components/Table";
 import styles from "@/utils/table-styles";
 import MessageModal from "@/components/Modal/MessageModal";

@@ -43,7 +43,7 @@ const SideBar = ({ onClose, onOpen, isOpen, ...rest }: SidebarProps) => {
       tabName: 'Customers'
     },
     {
-      href: '#',
+      href: '/group',
       icon: Group,
       alt: 'payers icon',
       tabName: 'Groups'

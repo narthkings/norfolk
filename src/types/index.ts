@@ -35,6 +35,12 @@ export interface ICreateAdmin {
     createdAt?: string | Date
 }
 
+export interface IGroups {
+    groupName: string
+    _id: string
+    createdAt: string | Date
+}
+
 export interface ICustomer {
     age?: number
     id?: string

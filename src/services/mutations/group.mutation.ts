@@ -41,10 +41,11 @@ export const useAddCustomerToGroups = () => {
 
 export const useViewGroupMembers = (groupId: string) => {
     return useQuery({
-        queryKey: ['viewGroupMembers'],
+        queryKey: ['viewGroupMembers', groupId],
         queryFn: async () => {
-            const res = await axios.get('/view-group-members', { data: { groupId } })
+            const res = await axios.get('/view-group-members', { params: { groupId } })
             return res
-        }
+        },
+        enabled: !!groupId,
     })
 }

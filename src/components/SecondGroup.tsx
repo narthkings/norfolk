@@ -8,6 +8,7 @@ import OutlineBtn from './app-button/OutlineBtn'
 import InputField from './input'
 import { useCreateGroupMutation } from '@/services/mutations/group.mutation'
 import { ICreateGroup } from '@/types'
+import toast from 'react-hot-toast'
 
 type Props = {
     onGroupClose: () => void
@@ -25,13 +26,12 @@ const SecondGroup = ({ onGroupClose, setSelectionType }: Props) => {
     })
     const addGroup = async (data: ICreateGroup) => {
         try {
-            await mutateAsync(data.groupName)
+            const res = await mutateAsync(data.groupName)
+            if (res.data.status === true) toast.success(res.data.message)
             reset()
             onGroupClose()
             setSelectionType('type1')
-        } catch (error) {
-
-        }
+        } catch (error) { }
     }
     return (
         <form onSubmit={handleSubmit(addGroup)}>

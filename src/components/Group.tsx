@@ -15,6 +15,7 @@ import { ICustomerToGroup, Ids } from "@/types";
 import AppSelect, { SelectProps } from "./app-select";
 import { OnChangeValue, SingleValue } from "react-select";
 import SecondGroup from "./SecondGroup";
+import toast from "react-hot-toast";
 
 type Props = {
     members: Ids[];
@@ -49,7 +50,8 @@ const Group = ({
                 groupId: data.groupId,
                 members: members.map((el) => el),
             };
-            addCustomerToGroup(payload);
+            const res = await addCustomerToGroup(payload);
+            if (res.data.status === true) toast.success(res.data.message)
             reset();
             onGroupClose();
             setSelectedRows([]);
