@@ -20,29 +20,30 @@ axios.interceptors.request.use(axiosConfiguration as any);
 
 axios.interceptors.response.use(
   (res: any) => {
-    if (res.data.status === false) toast.error(res.data.message)
-    // if (res.data.status === true) toast.success(res.data.message)
+    // if (res.data.status === false) toast.error(res.message)
+    // // if (res.data.status === true) toast.success(res.data.message)
     return res;
   },
   async (error: any) => {
-    // if (
-    //   error instanceof AxiosError &&
-    //   error.response?.status === 401 &&
-    //   error.response?.data?.message === 'Unauthorized'
-    // ) {
-    //   window.location.href = '/';
-    //   return;
-    // }
-    // if (error instanceof AxiosError && error.response?.status === 400) {
-    //   ErrorToast(error.response?.data?.message);
-    //   return;
-    // }
-    // if (error instanceof AxiosError && error.response?.status === 403) {
-    //   ErrorToast(error.response?.data?.message);
-    //   return;
-    // }
-    // ErrorToast(error.response?.data?.message);
-    // return Promise.reject(error);
+    console.log(error)
+    if (
+      error instanceof AxiosError &&
+      error.response?.status === 401 &&
+      error.response?.data?.message === 'Unauthorized'
+    ) {
+      window.location.href = '/';
+      return;
+    }
+    if (error instanceof AxiosError && error.response?.status === 400) {
+      ErrorToast(error.response?.data?.message);
+      return;
+    }
+    if (error instanceof AxiosError && error.response?.status === 403) {
+      ErrorToast(error.response?.data?.message);
+      return;
+    }
+    ErrorToast(error.response?.data?.message);
+    return Promise.reject(error);
   }
 );
 

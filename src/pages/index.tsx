@@ -10,9 +10,9 @@ import { Box, Flex } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import { configOptions } from '@/services/config';
+import toast from 'react-hot-toast';
 
 const Home = () => {
   const token = configOptions()
@@ -35,13 +35,10 @@ const Home = () => {
   const handleLogin = async (data: LoginType) => {
     try {
       const req = await mutateAsync(data)
-      // toast.success(req.data.message)
-      if (req.data.status === true) {
-        router.push('/customers')
-        sessionStorage.setItem('admin', JSON.stringify(req.data.token))
-        sessionStorage.setItem('profileData', JSON.stringify(req.data))
-        return
-      }
+      toast.success(req.data.message)
+      router.push('/customers')
+      sessionStorage.setItem('admin', JSON.stringify(req.data.token))
+      sessionStorage.setItem('profileData', JSON.stringify(req.data))
     } catch (error: any) {
     }
   }
